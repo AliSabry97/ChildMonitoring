@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="team.child.childmonitoring.MainActivity"
+    android:background="#8accfd"
+    android:padding="20dp">
+
+    <RelativeLayout
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:src="@drawable/boy"
+            android:id="@+id/image_boy"
+            android:layout_marginTop="93dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Child Monitoring"
+            android:textSize="17sp"
+            android:layout_marginTop="25dp"
+            android:id="@+id/app_name"
+            android:textColor="#0a042c"
+            android:layout_below="@+id/image_boy"
+            android:layout_centerHorizontal="true" />
+        <EditText
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/edit_text_background"
+            android:layout_width="300dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="35dp"
+            android:id="@+id/login_email"
+            android:hint="email"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:layout_below="@+id/app_name"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="24dp" />
+        <EditText
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/edit_text_background"
+            android:layout_width="300dp"
+            android:layout_height="35dp"
+            android:hint="password"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:id="@+id/login_password"
+            android:layout_below="@+id/login_email"
+            android:layout_alignStart="@+id/login_email"
+            android:layout_marginTop="17dp" />
+        <Button
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Log in"
+            android:gravity="center"
+            android:id="@+id/login_btn"
+            android:background="@drawable/btn_login_background"
+            android:textColor="#fff"
+            android:layout_marginTop="19dp"
+            android:layout_below="@+id/login_password"
+            android:layout_alignStart="@+id/login_password" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#d00e0e"
+            android:text="Forgot your Password ?"
+            android:textStyle="bold"
+            android:id="@+id/forgot_password"
+            android:layout_marginTop="19dp"
+            android:layout_below="@+id/login_btn"
+            android:layout_alignStart="@+id/app_name" />
+        <TextView
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create New Account !"
+            android:textColor="#d00e0e"
+            android:layout_marginTop="16dp"
+            android:id="@+id/create_Account"
+            android:layout_below="@+id/forgot_password"
+            android:layout_alignStart="@+id/image_boy" />
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

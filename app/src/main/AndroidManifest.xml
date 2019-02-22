@@ -5,6 +5,10 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" />
 
     <application
         android:allowBackup="true"
@@ -20,11 +24,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".ForgotPassword" />
+        <activity
+            android:name=".RegisterActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ForgotPassword"
+            android:parentActivityName=".MainActivity" />
         <activity android:name=".StartActivity" />
-        <activity android:name=".CurrentUsers" />
-        <activity android:name=".UserProfile"></activity>
+        <activity
+            android:name=".CurrentUsers"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".UserProfile"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".QrCodeActivity"
+            android:parentActivityName=".UserProfile" />
+        <activity android:name=".ScanCode"></activity>
     </application>
 
 </manifest>

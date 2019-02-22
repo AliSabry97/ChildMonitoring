@@ -8,10 +8,13 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,12 +27,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.hbb20.CountryCodePicker;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class RegisterActivity extends AppCompatActivity {
     private EditText username_edt, password_edt, email_edt, age_edt;
     private CountryCodePicker countryCodePicker;
-    private String username, email, password, age ,gender;
+    private String username, email, password, age ,gender , type;
     Integer gender_id;
     private RadioGroup radioGroup;
     Button submit;
@@ -38,6 +43,7 @@ public class RegisterActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private Button register;
     private RadioButton radioButton;
+    private Spinner spinner;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +59,7 @@ public class RegisterActivity extends AppCompatActivity {
         createaccount = findViewById(R.id.create_Account);
         register = findViewById(R.id.register);
         radioGroup=findViewById(R.id.gender);
+        spinner=findViewById(R.id.select_type);
 
 
 
@@ -65,18 +72,40 @@ public class RegisterActivity extends AppCompatActivity {
 
         countryCodePicker = findViewById(R.id.countrypicker);
 
+        List<String> types=new ArrayList<>();
+        types.add("Parent");
+        types.add("Child");
+        ArrayAdapter<String > spinneradapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,types);
+        spinneradapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(spinneradapter);
 
+        type="parent";
 
 
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
+                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        type=adapterView.getSelectedItem().toString();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                });
               final String  country_code = String.valueOf(countryCodePicker.getSelectedCountryCodeAsInt());
               final String  country_name = countryCodePicker.getSelectedCountryName();
                 gender_id=radioGroup.getCheckedRadioButtonId();
                 radioButton=findViewById(gender_id);
                 gender=radioButton.getText().toString();
+
+                Toast.makeText(RegisterActivity.this,type , Toast.LENGTH_LONG).show();
 
                 email = email_edt.getText().toString();
                 password = password_edt.getText().toString();
@@ -90,6 +119,7 @@ public class RegisterActivity extends AppCompatActivity {
                 users.put("gender",gender);
                 users.put("countrycode",country_code);
                 users.put("countryname",country_name);
+                users.put("type",type);
 
                 mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -114,7 +144,9 @@ public class RegisterActivity extends AppCompatActivity {
                 });
             }
         });
+
     }
+
 }
 
 

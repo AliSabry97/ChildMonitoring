@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         password_edt = findViewById(R.id.login_password);
         login = findViewById(R.id.login_btn);
         mauth = FirebaseAuth.getInstance();
-
+;
 
             login.setOnClickListener(new View.OnClickListener() {
                 @Override

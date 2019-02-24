@@ -32,7 +32,7 @@ public class ScanCode extends AppCompatActivity implements ZXingScannerView.Resu
     public void handleResult(final Result result) {
 
         if (result.getText()!=null) {
-            UserProfile.qr_result_text.setText(result.getText());
+
             databaseReference.child(currentuser).child(result.getText()).child("type").setValue("follow").addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {

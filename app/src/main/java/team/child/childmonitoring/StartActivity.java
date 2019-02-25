@@ -1,25 +1,34 @@
 package team.child.childmonitoring;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.os.Build;
+import android.provider.CallLog;
+import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.TextView;
+import android.Manifest;
+
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import org.w3c.dom.Text;
+
 
 public class StartActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private FirebaseUser firebaseUser;
     private FirebaseAuth mauth;
+    private TextView textView;
+    private static  final int Permission_Read_call_log=100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +40,17 @@ public class StartActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Child Monitoring");
         mauth=FirebaseAuth.getInstance();
         firebaseUser=mauth.getCurrentUser();
+        textView=findViewById(R.id.calllogs);
 
+
+
+
+        if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.M && checkSelfPermission(android.Manifest.permission.READ_CALL_LOG)!= PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.WRITE_CALL_LOG ) != PackageManager.PERMISSION_GRANTED)
+            requestPermissions(new String[ ] {android.Manifest.permission.READ_CALL_LOG , Manifest.permission.WRITE_CALL_LOG},Permission_Read_call_log);
 
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -72,4 +88,9 @@ public class StartActivity extends AppCompatActivity {
         startActivity(login);
         finish();
     }
+
+
+
 }
+
+

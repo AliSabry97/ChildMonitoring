@@ -17,4 +17,12 @@
 
 
 
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/start_activity_toolbar"
+        android:id="@+id/calllogs"/>
+
+
 </RelativeLayout>

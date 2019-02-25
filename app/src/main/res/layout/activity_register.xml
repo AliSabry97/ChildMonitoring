@@ -31,7 +31,7 @@
             android:layout_below="@id/name_of_user"
             android:layout_marginTop="19dp"
             android:layout_marginStart="10dp"
-            android:inputType="text"
+            android:inputType="textEmailAddress"
             android:hint="  Email"
             android:textColorHint="#383838"/>
 
@@ -45,7 +45,7 @@
           android:layout_height="40dp"
           android:layout_marginTop="13dp"
           android:ems="10"
-          android:inputType="phone"
+          android:inputType="textPassword"
           android:hint=" Password"
           android:layout_below="@+id/email_of_user"
          android:layout_marginStart="10dp"
@@ -61,7 +61,7 @@
             android:layout_marginTop="13dp"
             android:layout_below="@+id/password_of_user"
             android:ems="10"
-            android:inputType="text"
+            android:inputType="phone"
             android:layout_marginStart="10dp"
             android:hint="  Age "
             android:textColorHint="#383838"/>
@@ -93,6 +93,7 @@
             android:layout_height="wrap_content"
             android:text="Male"
             android:id="@+id/male"
+            android:checked="true"
             />
         <RadioButton
             android:layout_width="wrap_content"
@@ -143,6 +144,7 @@
         android:layout_toEndOf="@+id/countrypicker"
         android:layout_marginStart="17dp"
         android:id="@+id/phone_number"
+        android:inputType="phone"
         android:background="@drawable/edit_text_background"
         android:textColorHint="#383838"/>
 

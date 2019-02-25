@@ -1,6 +1,8 @@
 package team.child.childmonitoring;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.provider.CallLog;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,6 +23,8 @@ import com.google.firebase.auth.FirebaseUser;
 
 import org.w3c.dom.Text;
 
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity {
     private EditText email_edt , password_edt;
     private FirebaseAuth mauth;
@@ -39,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
         login = findViewById(R.id.login_btn);
         mauth = FirebaseAuth.getInstance();
 ;
+
+
+
 
             login.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -104,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
     }
+
 
 
 }

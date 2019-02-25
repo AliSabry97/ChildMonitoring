@@ -23,8 +23,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.hbb20.CountryCodePicker;
 
 import java.util.ArrayList;
@@ -32,9 +35,9 @@ import java.util.HashMap;
 import java.util.List;
 
 public class RegisterActivity extends AppCompatActivity {
-    private EditText username_edt, password_edt, email_edt, age_edt;
+    private EditText username_edt, password_edt, email_edt, age_edt , phone_edt;
     private CountryCodePicker countryCodePicker;
-    private String username, email, password, age ,gender , type;
+    private String username, email, password, age ,gender , type , phone;
     Integer gender_id;
     private RadioGroup radioGroup;
     Button submit;
@@ -60,6 +63,7 @@ public class RegisterActivity extends AppCompatActivity {
         register = findViewById(R.id.register);
         radioGroup=findViewById(R.id.gender);
         spinner=findViewById(R.id.select_type);
+        phone_edt=findViewById(R.id.phone_number);
 
 
 
@@ -79,7 +83,17 @@ public class RegisterActivity extends AppCompatActivity {
         spinneradapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(spinneradapter);
 
-        type="parent";
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                type=adapterView.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
 
 
@@ -88,60 +102,66 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        type=adapterView.getSelectedItem().toString();
-                    }
 
-                    @Override
-                    public void onNothingSelected(AdapterView<?> adapterView) {
 
-                    }
-                });
               final String  country_code = String.valueOf(countryCodePicker.getSelectedCountryCodeAsInt());
               final String  country_name = countryCodePicker.getSelectedCountryName();
                 gender_id=radioGroup.getCheckedRadioButtonId();
                 radioButton=findViewById(gender_id);
                 gender=radioButton.getText().toString();
-
-                Toast.makeText(RegisterActivity.this,type , Toast.LENGTH_LONG).show();
-
+                phone=phone_edt.getText().toString();
                 email = email_edt.getText().toString();
                 password = password_edt.getText().toString();
                 age = age_edt.getText().toString();
                 username = username_edt.getText().toString();
-                final HashMap<String , String > users=new HashMap<String, String>();
-                users.put("username",username);
-                users.put("password",password);
-                users.put("email",email);
-                users.put("Age",age);
-                users.put("gender",gender);
-                users.put("countrycode",country_code);
-                users.put("countryname",country_name);
-                users.put("type",type);
 
-                mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            final String user_id=mAuth.getCurrentUser().getUid();
-                            databaseReference.child(user_id).setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    Toast.makeText(RegisterActivity.this,"Successfully Created..." , Toast.LENGTH_LONG).show();
+                if (gender!=null && phone!=null && email!=null && password!=null && age!=null && username!=null)
+                {
 
-                                    Intent start_intent=new Intent(RegisterActivity.this,StartActivity.class);
-                                    startActivity(start_intent);
-                                    finish();
-                                }
-                            });
+                    final HashMap<String , String > users=new HashMap<String, String>();
+                    users.put("username",username);
+                    users.put("password",password);
+                    users.put("email",email);
+                    users.put("Age",age);
+                    users.put("gender",gender);
+                    users.put("countrycode",country_code);
+                    users.put("countryname",country_name);
+                    users.put("phone",phone);
+                    users.put("type",type);
+                    users.put("thumb_link","default");
+                    users.put("picture_link","default");
 
+                    mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                final String user_id=mAuth.getCurrentUser().getUid();
+                                databaseReference.child(user_id).setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        Toast.makeText(RegisterActivity.this,"Successfully Created..." , Toast.LENGTH_LONG).show();
+
+                                        Intent start_intent=new Intent(RegisterActivity.this,StartActivity.class);
+                                        startActivity(start_intent);
+                                        finish();
+                                    }
+                                });
+
+
+                            }
+                            else
+                            {
+                                Toast.makeText(RegisterActivity.this , task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                            }
 
                         }
+                    });
+                }
+                else
+                {
+                    Toast.makeText(RegisterActivity.this,"Please Don't leave any Field empty... " , Toast.LENGTH_LONG).show();
+                }
 
-                    }
-                });
             }
         });
 

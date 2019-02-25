@@ -8,7 +8,11 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-feature android:name="android.hardware.camera" />
+
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+    <uses-permission android:name="ANDROID.PERMISSION.READ_CONTACTS" />
 
     <application
         android:allowBackup="true"
@@ -40,7 +44,11 @@
         <activity
             android:name=".QrCodeActivity"
             android:parentActivityName=".UserProfile" />
-        <activity android:name=".ScanCode"></activity>
+        <activity android:name=".ScanCode" />
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
+        <activity android:name=".SingleChild" android:parentActivityName=".CurrentUsers"></activity>
     </application>
 
 </manifest>
